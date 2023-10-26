@@ -36,9 +36,8 @@ const FileUploadForm: React.FC = () => {
   return (
     <div>
       <input type="file" onChange={handleFileChange} />
-      <input
+      <input className='dark:text-neutral-950'
         type="text"
-        
         placeholder="New File Name"
         value={newFileName}
         onChange={handleRenameChange}
