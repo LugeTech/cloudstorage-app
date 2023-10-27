@@ -1,7 +1,7 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react';
 import { submitForm } from '@/app/utils/FileOperations'
-import { base64StringToBlob } from 'blob-util';
+import DragAndDrop from './DragAndDrop';
 
 function getFileFromFormData(formData: FormData, fieldName: string): Blob | null {
   if (formData.has(fieldName)) {
@@ -47,6 +47,7 @@ const FileUploadForm: React.FC = () => {
         />
         <button type='submit' formAction={handleUpload}>Upload</button>
       </form>
+      <DragAndDrop />
     </div>
   );
 };
