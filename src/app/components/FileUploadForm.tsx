@@ -11,6 +11,7 @@ const FileUploadForm: React.FC = () => {
     if (selectedFile) {
       setFile(selectedFile);
     }
+    
   };
 
   const handleRenameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,20 +21,21 @@ const FileUploadForm: React.FC = () => {
   const handleUpload = async (formData:FormData) => {
     const filename = formData.get('filename') as string
     // console.log('handleUpload', filename)
-    const file = formData.get('file') as string
-
+    // const file = formData.get('file') as string
+    const testfile = file;
+    console.log('handleUpload', testfile)
     // const blob = await writeBinaryFileToFileSystem(file, filename);
 
     const blob = await createBlobFromFile(new File([file], filename || 'test.txt'))
-    console.log('handleUpload', blob)
-    return
-    console.log('handleUpload', file)
+    // console.log('handleUpload', blob)
 
-    // if (file) {
-    //   // Rename the file
-    //   const renamedFile = new File([file], newFileName || file.name, {
-    //     type: file.type,
-    //   });
+    // console.log('handleUpload', file)
+
+    if (file) {
+      // Rename the file
+      const renamedFile = new File([file], newFileName || file.name, {
+        type: file.type,
+      });
 
       // Now you can upload the renamed file using an HTTP request, e.g., Axios.
       // Implement your upload logic here.
