@@ -30,7 +30,9 @@ const FileUploadForm: React.FC = () => {
   const handleUpload = async (formData: FormData) => {
     const filename = formData.get('filename') as string
     // setFileAsBlob(getFileFromFormData(formData, 'file'));
-    // const fileAsBlob = getFileFromFormData(formData, 'file') as Blob;
+    const fileAsBlob = getFileFromFormData(formData, 'file') as Blob;
+    formData.delete('file');
+    formData.set('file', fileAsBlob);
 
     // console.log('handleUpload', fileAsBlob)
     // const file = formData.get('file') as File
@@ -61,7 +63,7 @@ const FileUploadForm: React.FC = () => {
   return (
     <div className=' flex flex-row md:flex-row'>
       <form>
-        <label onChange={handleFileChange} htmlFor="file-upload">Upload a File</label>
+        <label htmlFor="file-upload">Upload a File</label>
         <input name='file' id="file-upload" type="file" onChange={handleFileChange} />
         <input name='filename' className='dark:text-neutral-950'
           type="text"
