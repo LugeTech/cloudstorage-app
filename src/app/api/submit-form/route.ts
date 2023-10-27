@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const buffer = await file.arrayBuffer();
   const dataView = new DataView(buffer);
 
-  fs.writeFileSync(file.name, dataView);
+  fs.writeFileSync(`./public/uploads/${filename}`, dataView);
   // Process the form data
 
   return NextResponse.json({ success: true });
