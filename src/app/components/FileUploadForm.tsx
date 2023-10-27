@@ -1,7 +1,7 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react';
 import { submitForm } from '@/app/utils/FileOperations'
-import DragAndDrop from './DragAndDrop';
+import DragAndDrop from '@/app/components/DragAndDrop';
 
 function getFileFromFormData(formData: FormData, fieldName: string): Blob | null {
   if (formData.has(fieldName)) {
@@ -35,11 +35,11 @@ const FileUploadForm: React.FC = () => {
   };
 
   return (
-    <div className=' flex flex-row md:flex-row'>
+    <div className=' flex md:flex-col'>
       <form>
         <label htmlFor="file-upload">Upload a File</label>
         <input name='file' id="file-upload" type="file" onChange={handleFileChange} />
-        <input name='filename' className='dark:text-neutral-950'
+        <input name='filename' className='dark:text-neutral-950 flex flex-col'
           type="text"
           placeholder="New File Name"
           value={newFileName}
@@ -47,7 +47,6 @@ const FileUploadForm: React.FC = () => {
         />
         <button type='submit' formAction={handleUpload}>Upload</button>
       </form>
-      <DragAndDrop />
     </div>
   );
 };
