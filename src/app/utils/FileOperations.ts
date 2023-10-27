@@ -1,5 +1,6 @@
-
+'use server'
 import fs from 'fs';
+
 export async function createBlobFromFile(file: File): Promise<Blob> {
   const buffer = await file.arrayBuffer();
   return new Blob([buffer]);
