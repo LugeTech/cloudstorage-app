@@ -40,9 +40,11 @@ export default function DragAndDrop() {
 
   const handleUpload = async (formData: FormData) => {
     console.log("hadleupload fiunc");
+    formData.set('draggedFile', files[0]);
     const fileAsBlob = getFileFromFormData(formData, 'file') as Blob;
+    const draggedFileAsBlob = getFileFromFormData(formData, 'draggedFile') as Blob;
     formData.delete('file');
-    formData.set('file', fileAsBlob);
+    fileAsBlob ? formData.set('file', fileAsBlob) : formData.set('file', draggedFileAsBlob);
     await submitForm(formData);
   };
 
