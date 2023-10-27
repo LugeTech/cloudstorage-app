@@ -28,36 +28,10 @@ const FileUploadForm: React.FC = () => {
   };
 
   const handleUpload = async (formData: FormData) => {
-    const filename = formData.get('filename') as string
-    // setFileAsBlob(getFileFromFormData(formData, 'file'));
     const fileAsBlob = getFileFromFormData(formData, 'file') as Blob;
     formData.delete('file');
     formData.set('file', fileAsBlob);
-
-    // console.log('handleUpload', fileAsBlob)
-    // const file = formData.get('file') as File
-    // const blob = await writeBinaryFileToFileSystem(FileAsBase64, filename);
     await submitForm(formData);
-    // const blob = await createBlobFromFile(new File([FileAsBase64], filename || 'test.txt'))
-    // console.log('handleUpload', blob)
-
-    // console.log('handleUpload', file)
-    // const blob = base64StringToBlob(FileAsBase64);
-    // console.log('handleUpload', blob)
-    //
-    // if (file) {
-    //   // Rename the file
-    //   const renamedFile = new File([file], newFileName || file.name, {
-    //     type: file.type,
-    //   });
-    //
-    //   // Now you can upload the renamed file using an HTTP request, e.g., Axios.
-    //   // Implement your upload logic here.
-    //
-    //   // Clear the form after upload
-    //   setFile(null);
-    //   setNewFileName('');
-    // }
   };
 
   return (
