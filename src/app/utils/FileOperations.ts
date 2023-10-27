@@ -3,6 +3,7 @@ export async function submitForm(formData: FormData) {
   const response = await fetch(process.env.API_PATH + "/submit-form", {
     method: "POST",
     body: formData,
+    cache: "no-cache",
   });
 
   if (response.ok) {
