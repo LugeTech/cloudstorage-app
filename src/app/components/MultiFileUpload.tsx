@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
+//@ts-ignore
 import ProgressBar from "react-progress-bar-plus";
-import { FaTimes } from "react-icons/fa";
 
 const FileUpload: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
