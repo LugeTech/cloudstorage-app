@@ -4,9 +4,10 @@ import fs from 'fs';
 const unixTime = Date.now();
 
 export async function POST(request: NextRequest) {
+  console.log("POST");
   const formData = await request.formData();
   const file = formData.get("file") as File;
-  const filename = formData.get("filename") as string || "userName";
+  const filename = formData.get("filename") as string || file.name;
 
   if (!file) {
     console.log("No file found");
