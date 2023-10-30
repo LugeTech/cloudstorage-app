@@ -2,6 +2,7 @@
 import DragAndDrop from './components/DragAndDrop'
 import { UserButton, useUser } from "@clerk/nextjs";
 import FileUploadForm from './components/FileUploadForm'
+import MultiFileUpload from './components/MultiFileUpload';
 
 export default function Home() {
   const { isLoaded, isSignedIn } = useUser();
@@ -13,10 +14,10 @@ export default function Home() {
   }
   else {
     return (
-      <main className="flex min-h-screen flex-col items-center p-24">
+      <main className="flex  flex-col items-center justify-center gap-4">
         {<h1 className="text-4xl font-bold text-center">Cloud App</h1>}
-        {/* <div><FileUploadForm /></div> */}
         <DragAndDrop />
+        <MultiFileUpload />
         <UserButton afterSignOutUrl="/" />
       </main>
     )
