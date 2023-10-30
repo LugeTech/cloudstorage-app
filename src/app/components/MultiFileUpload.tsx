@@ -5,7 +5,7 @@ import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
 import ProgressBar from "react-progress-bar-plus";
-export const revalidate = 10;
+export const revalidate = 0;
 const FileUpload: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -55,7 +55,7 @@ const FileUpload: React.FC = () => {
     const cancelSource = axios.CancelToken.source();
 
     try {
-      await axios.post(process.env.API_PATH + "/submit-form", formData, {
+      await axios.post(process.env.NEXT_PUBLIC_API_PATH + "/submit-form", formData, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total!);
           setUploadProgress((prevProgress) => {
@@ -82,13 +82,13 @@ const FileUpload: React.FC = () => {
 
   const cancelTokenSources: CancelTokenSource[] = [];
 
-  const uploadFiles = () => {
-    files.forEach((file, index) => {
-      const cancelSource = axios.CancelToken.source();
+  const uploadFiles = async () => {
+    files.forEach(async (file, index) => {
+      const cancelSource = await axios.CancelToken.source();
       cancelTokenSources[index] = cancelSource;
 
       // NOTE create blob or other modification of the file here
-      uploadFile(file, index);
+      await uploadFile(file, index);
     });
   };
 
