@@ -5,7 +5,7 @@ import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
 import ProgressBar from "react-progress-bar-plus";
-
+export const revalidate = 10;
 const FileUpload: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -55,7 +55,7 @@ const FileUpload: React.FC = () => {
     const cancelSource = axios.CancelToken.source();
 
     try {
-      await axios.post("YOUR_BACKEND_UPLOAD_URL", formData, {
+      await axios.post(process.env.API_PATH + "/submit-form", formData, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total!);
           setUploadProgress((prevProgress) => {
@@ -66,13 +66,11 @@ const FileUpload: React.FC = () => {
         },
         cancelToken: cancelSource.token,
       });
-      // Handle successful file upload
+      // NOTE upload successful add some kinda feedback here
     } catch (error) {
       if (axios.isCancel(error)) {
-        // Handle cancelation if needed
-        return;
+        // NOTE user cancelled or removed file        return;
       }
-      // Handle upload error
       setUploadErrors([...uploadErrors, `Error uploading ${file.name}: ${error}`]);
     }
   };
@@ -88,6 +86,8 @@ const FileUpload: React.FC = () => {
     files.forEach((file, index) => {
       const cancelSource = axios.CancelToken.source();
       cancelTokenSources[index] = cancelSource;
+
+      // NOTE create blob or other modification of the file here
       uploadFile(file, index);
     });
   };
@@ -124,16 +124,16 @@ const FileUpload: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="mt-4">
-        {uploadErrors.map((error, index) => (
+      <div className="mt-2">
+        {uploadErrors ? uploadErrors.map((error, index) => (
           <div key={index} className="text-red-600">
             {error}
           </div>
-        ))}
+        )) : null}
       </div>
       <button
         onClick={uploadFiles}
-        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white"
+        className="mt-2 rounded-md bg-black px-4 py-2 text-white"
       >
         Upload Files
       </button>

@@ -90,7 +90,7 @@ export default function DragAndDrop() {
   }
 
   return (
-    <div className="flex items-start justify-center h-screen w-full">
+    <div className="flex items-start justify-center">
       <form
         className={`${dragActive ? "bg-blue-400" : "bg-blue-100"
           }  p-4 w-full rounded-lg  min-h-[10rem] text-center flex flex-col items-center justify-center`}
