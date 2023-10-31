@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { encryptBlob } from '../../utils/encrypt';
 import fs from 'fs';
 const unixTime = Date.now();
 
@@ -15,16 +14,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false });
   }
 
-  const buffer = await file.arrayBuffer();
-  const dataView = new DataView(buffer);
+  // Create a Blob directly from the File
+  const blob = new Blob([file]);
 
   const newFilename = `${filename}_${unixTime}`;
 
   try {
-    fs.writeFileSync(`./public/uploads/${newFilename}`, dataView);
+    // Convert the Blob to a Buffer
+    const blobBuffer = Buffer.from(await blob.arrayBuffer());
+
+    // Write the Buffer data to the file
+    fs.writeFileSync(`./public/uploads/${newFilename}`, blobBuffer);
   } catch (error) {
     // Handle the error
-  }  // Process the form data
+    console.error(error);
+    return NextResponse.json({ success: false });
+  }
 
+  // Process the form data
   return NextResponse.json({ success: true });
 }
