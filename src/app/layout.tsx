@@ -1,4 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs'
+
+import Navbar from "@/app/components/Navbar";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 
@@ -15,8 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
+
       <html lang="en">
-        <body className={`${poppins.className} flex flex-col items-center justify-center`}>{children}</body>
+        <body className={poppins.className}>{children}</body>
       </html>
     </ClerkProvider>
   )
