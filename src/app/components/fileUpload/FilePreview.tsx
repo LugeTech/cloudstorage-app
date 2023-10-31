@@ -8,9 +8,9 @@ type Props = {
 }
 const AFileDisplay = ({ imagePreviews, files, uploadProgress, removeFile }: Props) => {
   return (
-    <div className="flex w-full h-full p-4 gap-2  mx-auto md:w-1/2">
+    <div className="flex  w-full h-full p-4 gap-2 flex-wrap justify-center items-center bg-gray-100 rounded ">
       {imagePreviews.map((preview, index) => (
-        <div key={index} className="mb-4 flex flex-col items-center justify-center gap-2 w-24">
+        <div key={index} className="">
           <Image src={preview} alt={`Image ${index}`} width={100} height={100} className="object-cover w-24 h-24" />
           <p className="mt-2 text-gray-600 text-sm text-center">
             {files[index].name.length > 10

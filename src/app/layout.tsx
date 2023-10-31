@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${poppins.className} `}>{children}</body>
+        <body className={`${poppins.className} flex flex-col items-center justify-center`}>{children}</body>
       </html>
     </ClerkProvider>
   )
