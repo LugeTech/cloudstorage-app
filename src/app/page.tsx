@@ -14,10 +14,12 @@ export default function Home() {
   }
   else {
     return (
-      <main className="flex  flex-col items-center justify-center gap-4">
+      <main className="flex flex-col items-center justify-center gap-4 w-full">
         {<h1 className="text-4xl font-bold text-center pt-16">Cloud App</h1>}
         {/* <DragAndDrop /> */}
-        <MultiFileUpload />
+        <div className="flex flex-col items-center justify-center  w-full">
+          <MultiFileUpload />
+        </div>
         <UserButton afterSignOutUrl="/" />
       </main>
     )

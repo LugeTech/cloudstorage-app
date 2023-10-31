@@ -5,7 +5,7 @@ import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
 import ProgressBar from "@ramonak/react-progress-bar";
-import AFileDisplay from "./AFileDisplay";
+import FilePreview from "./FilePreview";
 import UploadError from "./UploadError";
 export const revalidate = 0;
 
@@ -29,7 +29,6 @@ const FileUpload: React.FC = () => {
       }
     });
 
-    const imageUrls = imageFiles.map((file) => URL.createObjectURL(file));
     setImagePreviews([...imagePreviews, ...filePreviews]);
     setUploadProgress([...uploadProgress, ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length)]);
     // Clear any previous upload errors
@@ -90,7 +89,7 @@ const FileUpload: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
+    <div className="flex flex-col items-center justify-center ">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
           <div className="border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-60">
@@ -101,15 +100,16 @@ const FileUpload: React.FC = () => {
           </div>
         )}
       </Dropzone>
-      <AFileDisplay imagePreviews={imagePreviews} files={files} uploadProgress={uploadProgress} removeFile={removeFile} />
-      <UploadError uploadErrors={uploadErrors} />
-      <button
-        onClick={uploadFiles}
-        className="mt-2 rounded-md bg-black px-4 py-2 text-white"
-      >
-        Upload Files
-      </button>
-
+      <div className="flex flex-col  p-4 gap-2 ">
+        <FilePreview imagePreviews={imagePreviews} files={files} uploadProgress={uploadProgress} removeFile={removeFile} />
+        <UploadError uploadErrors={uploadErrors} />
+        <button
+          onClick={uploadFiles}
+          className="mt-2 rounded-md bg-black px-4 py-2 text-white"
+        >
+          Upload Files
+        </button>
+      </div>
     </div>
   );
 };
