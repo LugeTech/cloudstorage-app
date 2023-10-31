@@ -17,9 +17,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center gap-4 w-full">
         {<h1 className="text-4xl font-bold text-center pt-16">Cloud App</h1>}
         {/* <DragAndDrop /> */}
-        <div className="flex flex-col items-center justify-center  w-full">
-          <MultiFileUpload />
-        </div>
+        <MultiFileUpload />
         <UserButton afterSignOutUrl="/" />
       </main>
     )
