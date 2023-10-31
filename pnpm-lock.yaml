@@ -8,6 +8,9 @@ dependencies:
   '@clerk/nextjs':
     specifier: ^4.26.1
     version: 4.26.1(next@14.0.0)(react-dom@18.2.0)(react@18.2.0)
+  '@ramonak/react-progress-bar':
+    specifier: ^5.0.3
+    version: 5.0.3(react-dom@18.2.0)(react@18.2.0)
   axios:
     specifier: ^1.6.0
     version: 1.6.0
@@ -23,9 +26,6 @@ dependencies:
   react-dropzone:
     specifier: ^14.2.3
     version: 14.2.3(react@18.2.0)
-  react-progress-bar-plus:
-    specifier: ^1.3.1
-    version: 1.3.1(react@18.2.0)
 
 devDependencies:
   '@types/node':
@@ -385,6 +385,16 @@ packages:
       pvtsutils: 1.3.5
       tslib: 2.6.2
       webcrypto-core: 1.7.7
+    dev: false
+
+  /@ramonak/react-progress-bar@5.0.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-VxXGKN74q94jYoeYuFNJm3xvWhVz9dy+alFZ8S4ZmTTr/05CCq9PjwthT8JB27UdAvn8pHvKBmemV8JU2cZi6A==}
+    peerDependencies:
+      react: ^16.0.0 || ^17 || ^18
+      react-dom: ^16.0.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@rushstack/eslint-patch@1.5.1:
@@ -891,10 +901,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
-
-  /classnames@2.3.2:
-    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
-    dev: false
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -2488,16 +2494,6 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-
-  /react-progress-bar-plus@1.3.1(react@18.2.0):
-    resolution: {integrity: sha512-ATfMeD/98IMhPQSYEfno9m/Phwd+YaxwJ4nzLmivoUYK6MSC91nX4agYIUHKwwnCc7tGCxf/oN91pAgb2N0ErQ==}
-    peerDependencies:
-      react: ^0.13 || ^0.14 || ^15.0.0
-    dependencies:
-      classnames: 2.3.2
-      prop-types: 15.8.1
-      react: 18.2.0
-    dev: false
 
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}

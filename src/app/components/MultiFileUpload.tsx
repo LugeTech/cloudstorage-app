@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
-import ProgressBar from "react-progress-bar-plus";
+import ProgressBar from "@ramonak/react-progress-bar";
 export const revalidate = 0;
+
 const FileUpload: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -36,13 +37,10 @@ const FileUpload: React.FC = () => {
   const removeFile = (index: number) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
-
     const updatedPreviews = [...imagePreviews];
     updatedPreviews.splice(index, 1);
-
     const updatedProgress = [...uploadProgress];
     updatedProgress.splice(index, 1);
-
     setFiles(updatedFiles);
     setImagePreviews(updatedPreviews);
     setUploadProgress(updatedProgress);
@@ -53,7 +51,6 @@ const FileUpload: React.FC = () => {
     const formData = new FormData();
     formData.append("file", file);
     const cancelSource = axios.CancelToken.source();
-
     try {
       await axios.post(process.env.NEXT_PUBLIC_API_PATH + "/submit-form", formData, {
         onUploadProgress: (progressEvent) => {
@@ -66,7 +63,7 @@ const FileUpload: React.FC = () => {
         },
         cancelToken: cancelSource.token,
       });
-      // NOTE upload successful add some kinda feedback here
+      // NOTE upload successful add some kinda feedback here - show download links
     } catch (error) {
       if (axios.isCancel(error)) {
         // NOTE user cancelled or removed file        return;
@@ -76,7 +73,6 @@ const FileUpload: React.FC = () => {
   };
 
   const cancelUpload = (index: number) => {
-    // Cancel the ongoing upload request by canceling the associated cancel token
     cancelTokenSources[index].cancel("Upload canceled by user");
   };
 
@@ -84,9 +80,8 @@ const FileUpload: React.FC = () => {
 
   const uploadFiles = async () => {
     files.forEach(async (file, index) => {
-      const cancelSource = await axios.CancelToken.source();
+      const cancelSource = axios.CancelToken.source();
       cancelTokenSources[index] = cancelSource;
-
       // NOTE create blob or other modification of the file here
       await uploadFile(file, index);
     });
@@ -104,17 +99,12 @@ const FileUpload: React.FC = () => {
           </div>
         )}
       </Dropzone>
-      <div className="mt-4 ">
+      <div className="mt-4 flex border-2 border-dashed border-gray-300 w-60 h-96">
         {imagePreviews.map((preview, index) => (
-          <div key={index} className="mb-4 flex flex-col items-center">
+          <div id='pb-div' key={index} className="mb-4 flex flex-col items-center justify-center w-full h-full">
             <img src={preview} alt={`Image ${index}`} width="100" />
             <p className="mt-2 text-gray-600 text-sm text-center">{files[index].name}</p>
-            <ProgressBar
-              completed={uploadProgress[index]}
-              bgColor="#4caf50"
-              labelAlignment="center"
-              height="20px"
-            />
+            <ProgressBar completed={uploadProgress[index]} className="mt-2 w-60 z-10" bgColor="#4caf50" />
             <button
               onClick={() => removeFile(index)}
               className="ml-2 mt-2 rounded-md bg-red-500 px-2 py-1 text-white"
@@ -137,6 +127,7 @@ const FileUpload: React.FC = () => {
       >
         Upload Files
       </button>
+
     </div>
   );
 };
