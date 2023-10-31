@@ -1,9 +1,7 @@
 "use client";
-// import DragAndDrop from './components/DragAndDrop'
 import { UserButton, useUser } from "@clerk/nextjs";
 
 import Navbar from "@/app/components/Navbar";
-import FileUploadForm from './components/FileUploadForm'
 import MultiFileUpload from './components/fileUpload/MultiFileUpload';
 
 
@@ -20,8 +18,7 @@ export default function Home() {
         <Navbar />
         <UserButton afterSignOutUrl="/"/>
         {<h1 className="text-4xl font-bold text-center">Cloud App</h1>}
-        {/* <div><FileUploadForm /></div> */}
-        <DragAndDrop />
+        <MultiFileUpload />
       </main>
     )
   }
