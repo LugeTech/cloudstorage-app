@@ -1,8 +1,11 @@
 "use client";
-import DragAndDrop from './components/DragAndDrop'
+// import DragAndDrop from './components/DragAndDrop'
 import { UserButton, useUser } from "@clerk/nextjs";
+
 import Navbar from "@/app/components/Navbar";
 import FileUploadForm from './components/FileUploadForm'
+import MultiFileUpload from './components/fileUpload/MultiFileUpload';
+
 
 export default function Home() {
   const { isLoaded, isSignedIn } = useUser();
@@ -11,7 +14,7 @@ export default function Home() {
       <button onClick={() => window.location.href = '/sign-in'}>Sign In</button>
     );
   }
-  else{
+  else {
     return (
       <main className="flex min-h-screen flex-col items-center p-24">
         <Navbar />

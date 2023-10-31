@@ -1,4 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs'
+
 import Navbar from "@/app/components/Navbar";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
