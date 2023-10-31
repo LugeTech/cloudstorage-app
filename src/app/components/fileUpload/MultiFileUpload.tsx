@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
-import ProgressBar from "@ramonak/react-progress-bar";
 import FilePreview from "./FilePreview";
 import UploadError from "./UploadError";
 export const revalidate = 0;
@@ -15,6 +14,7 @@ const FileUpload: React.FC = () => {
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
   const [otherFILES, setOtherFiles] = useState<File[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   const handleDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     setFiles([...files, ...acceptedFiles]);
@@ -45,7 +45,7 @@ const FileUpload: React.FC = () => {
     setFiles(updatedFiles);
     setImagePreviews(updatedPreviews);
     setUploadProgress(updatedProgress);
-    cancelUpload(index);
+    // cancelUpload(index);
   };
 
   const uploadFile = async (file: File, index: number) => {
@@ -65,6 +65,8 @@ const FileUpload: React.FC = () => {
         cancelToken: cancelSource.token,
       });
       // NOTE upload successful add some kinda feedback here - show download links
+      setUploading(false);
+
     } catch (error) {
       if (axios.isCancel(error)) {
         // NOTE user cancelled or removed file        return;
@@ -80,29 +82,32 @@ const FileUpload: React.FC = () => {
   const cancelTokenSources: CancelTokenSource[] = [];
 
   const uploadFiles = async () => {
+    setUploading(true);
+
     files.forEach(async (file, index) => {
       const cancelSource = axios.CancelToken.source();
       cancelTokenSources[index] = cancelSource;
       // NOTE create blob or other modification of the file here
       await uploadFile(file, index);
     });
+
   };
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
-          <div className="border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-60">
+          <div className="border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <p className="text-gray-500 text-center">Drag and drop some files here, or click to select files</p>
+              <p className="text-gray-500 text-center w-full h-full">Drag and drop some files here, or click to select files</p>
             </div>
           </div>
         )}
       </Dropzone>
 
       <div className="w-full ">
-        <FilePreview imagePreviews={imagePreviews} files={files} uploadProgress={uploadProgress} removeFile={removeFile} />
+        <FilePreview uploading={uploading} imagePreviews={imagePreviews} files={files} uploadProgress={uploadProgress} removeFile={removeFile} cancelUpload={cancelUpload} />
       </div>
       <UploadError uploadErrors={uploadErrors} />
       <button
