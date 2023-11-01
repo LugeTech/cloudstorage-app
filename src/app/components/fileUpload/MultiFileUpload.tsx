@@ -53,7 +53,7 @@ const FileUpload: React.FC = () => {
     formData.append("file", file);
     const cancelSource = axios.CancelToken.source();
     try {
-      await axios.post(process.env.NEXT_PUBLIC_API_PATH + "/submit-form", formData, {
+      await axios.post(process.env.NEXT_PUBLIC_API_PATH_UPLOAD!, formData, {
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total!);
           setUploadProgress((prevProgress) => {
