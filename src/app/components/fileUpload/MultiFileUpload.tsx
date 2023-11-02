@@ -6,6 +6,7 @@ import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
 import FilePreview from "./FilePreview";
 import UploadError from "./UploadError";
+import getIconForFileType from "@/app/utils/GetIconForFileType";
 export const revalidate = 0;
 
 const FileUpload: React.FC = () => {
@@ -21,13 +22,8 @@ const FileUpload: React.FC = () => {
     const imageFiles = acceptedFiles.filter((file) => file.type.startsWith("image/"));
     const otherFiles = acceptedFiles.filter((file) => !file.type.startsWith("image/"));
     setOtherFiles([...otherFILES, ...otherFiles]);
-    const filePreviews = acceptedFiles.map((file) => {
-      if (file.type.startsWith("image/")) {
-        return URL.createObjectURL(file);
-      } else {
-        return "/no_image.svg";
-      }
-    });
+
+    const filePreviews = getIconForFileType(acceptedFiles); // files here might not be the updated in which case i will have to use a useEffect
 
     setImagePreviews([...imagePreviews, ...filePreviews]);
     setUploadProgress([...uploadProgress, ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length)]);
