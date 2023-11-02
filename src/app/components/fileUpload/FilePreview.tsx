@@ -15,8 +15,13 @@ const AFileDisplay = ({ imagePreviews, files, uploadProgress, removeFile, cancel
     <div className="flex  w-full h-full p-4 gap-2 flex-wrap justify-center items-center ">
       {imagePreviews.map((preview, index) => (
         <div key={index} className="relative flex flex-col items-center">
-          <Image src={preview} alt={`Image ${index}`} width={96} height={96} className="object-cover w-24 h-24" />
-          <AiOutlineClose className="absolute top-1 right-1 bg-red-500 text-white cursor-pointer" onClick={() => removeFile(index)} />
+          <div className="w-24 h-24 relative group">
+            <Image src={preview} alt={`Image ${index}`} width={96} height={96} className="object-cover w-24 h-24 group" />
+            <AiOutlineClose className="absolute top-0 right-0 bg-red-500 text-white cursor-pointer" onClick={() => removeFile(index)} />
+            <div className="hidden group-hover:block absolute z-10 p-2 bg-neutral-600 text-white text-xs mt-2 rounded-lg whitespace-no-wrap">
+              {files[index].name}
+            </div>
+          </div>
 
           <p className="mt-2 text-gray-600 text-sm text-center">
             {files[index].name.length > 12
