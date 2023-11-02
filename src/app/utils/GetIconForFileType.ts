@@ -7,23 +7,23 @@ const getIconForFileType = (files: File[]) => {
         return URL.createObjectURL(file);
       case 'application':
         if (file.type === 'application/zip') {
-          return '/zip_icon.svg';
+          return '/file_images/zip-file.png';
         } else if (file.type === 'application/pdf') {
-          return '/pdf_icon.svg';
+          return '/file_images/pdf.png';
         } else if (
           file.type === 'application/msword' ||
           file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         ) {
-          return '/doc_icon.svg';
+          return '/file_images/doc.png';
         }
         // Handle other document types as needed
-        return '/document_icon.svg';
+        return '/file_images/doc.png'; // do others like xls
       case 'audio':
-        return '/audio_icon.svg';
+        return '/file_images/audio.png';
       case 'video':
-        return '/video_icon.svg';
+        return '/file_images/video.png';
       default:
-        return '/unknown_file_type.svg';
+        return '/file_images/no_image.svg';
     }
   })
 }

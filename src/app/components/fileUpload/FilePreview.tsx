@@ -16,7 +16,7 @@ const AFileDisplay = ({ imagePreviews, files, uploadProgress, removeFile, cancel
       {imagePreviews.map((preview, index) => (
         <div key={index} className="relative flex flex-col items-center">
           <Image src={preview} alt={`Image ${index}`} width={96} height={96} className="object-cover w-24 h-24" />
-          <AiOutlineClose className="absolute top-2 right-2 bg-red-500 text-white cursor-pointer" onClick={() => removeFile(index)} />
+          <AiOutlineClose className="absolute top-1 right-1 bg-red-500 text-white cursor-pointer" onClick={() => removeFile(index)} />
 
           <p className="mt-2 text-gray-600 text-sm text-center">
             {files[index].name.length > 12
