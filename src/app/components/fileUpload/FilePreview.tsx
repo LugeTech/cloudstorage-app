@@ -18,8 +18,11 @@ const AFileDisplay = ({ imagePreviews, files, uploadProgress, removeFile, cancel
           <div className="w-24 h-24 relative group">
             <Image src={preview} alt={`Image ${index}`} width={96} height={96} className="object-cover w-24 h-24 group" />
             <AiOutlineClose className="absolute top-0 right-0 bg-red-500 text-white cursor-pointer" onClick={() => removeFile(index)} />
-            <div className="hidden group-hover:block absolute z-10 p-2 bg-neutral-600 text-white text-xs mt-2 rounded-lg whitespace-no-wrap">
-              {files[index].name}
+            <div className="w-full hidden group-hover:block absolute z-10 p-1 bg-neutral-600 text-white text-xs mt-2 rounded-lg whitespace-no-wrap">
+              <p>{files[index].name}</p>
+              <p>{files[index].type}</p>
+              <p>{(files[index].size / 1024 / 1024).toFixed(2)} MB</p>
+
             </div>
           </div>
 
