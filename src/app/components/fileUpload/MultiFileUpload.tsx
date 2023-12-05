@@ -13,7 +13,7 @@ const FileUpload: React.FC = () => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
-  const [otherFILES, setOtherFiles] = useState<File[]>([]);
+  // const [otherFILES, setOtherFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
 
   const handleDrop = (
@@ -21,17 +21,20 @@ const FileUpload: React.FC = () => {
     rejectedFiles: FileRejection[],
   ) => {
     setFiles([...files, ...acceptedFiles]);
-    const imageFiles = acceptedFiles.filter((file) =>
-      file.type.startsWith("image/"),
-    );
-    const otherFiles = acceptedFiles.filter(
-      (file) => !file.type.startsWith("image/"),
-    );
-    setOtherFiles([...otherFILES, ...otherFiles]);
+    // get all imagees files, not sure why i had this
+    // const imageFiles = acceptedFiles.filter((file) =>
+    //   file.type.startsWith("image/"),
+    // );
+
+    // const otherFiles = acceptedFiles.filter(
+    //   (file) => !file.type.startsWith("image/"),
+    // );
+    // setOtherFiles([...otherFILES, ...otherFiles]);
 
     const filePreviews = getIconForFileType(acceptedFiles); // files here might not be the updated in which case i will have to use a useEffect
 
     setImagePreviews([...imagePreviews, ...filePreviews]);
+
     setUploadProgress([
       ...uploadProgress,
       ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length),
@@ -50,7 +53,7 @@ const FileUpload: React.FC = () => {
     setFiles(updatedFiles);
     setImagePreviews(updatedPreviews);
     setUploadProgress(updatedProgress);
-    // cancelUpload(index);
+    cancelUpload(index); // keep an eye on this, not tested
   };
 
   const uploadFile = async (file: File, index: number) => {
