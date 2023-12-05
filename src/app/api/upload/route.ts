@@ -1,12 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import { encryptBuffer } from "@/app/utils/encryptAndDecrypt";
+
 const unixTime = Date.now();
 
 export async function POST(request: NextRequest) {
   console.log("POST");
+
   const formData = await request.formData();
   const file = formData.get("file") as File;
-  const filename = formData.get("filename") as string || file.name;
+  const filename = (formData.get("filename") as string) || file.name;
 
   if (!file) {
     console.log("No file found");
@@ -14,17 +17,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false });
   }
 
-  // Create a Blob directly from the File
-  const blob = new Blob([file]);
-
   const newFilename = `${filename}_${unixTime}`;
 
   try {
-    // Convert the Blob to a Buffer
-    const blobBuffer = Buffer.from(await blob.arrayBuffer());
+    // Convert the File to a Buffer
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Write the Buffer data to the file
-    fs.writeFileSync(`./public/uploads/${newFilename}`, blobBuffer);
+    // Encrypt the Buffer
+    const encryptedBuffer = encryptBuffer(fileBuffer);
+
+    // Write the encrypted Buffer directly to disk
+    fs.writeFileSync(`./public/uploads/${newFilename}`, encryptedBuffer);
   } catch (error) {
     // Handle the error
     console.error(error);
