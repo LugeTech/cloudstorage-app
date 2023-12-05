@@ -1,5 +1,4 @@
-
-'use client';
+"use client";
 import React, { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
@@ -17,16 +16,26 @@ const FileUpload: React.FC = () => {
   const [otherFILES, setOtherFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
 
-  const handleDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+  const handleDrop = (
+    acceptedFiles: File[],
+    rejectedFiles: FileRejection[],
+  ) => {
     setFiles([...files, ...acceptedFiles]);
-    const imageFiles = acceptedFiles.filter((file) => file.type.startsWith("image/"));
-    const otherFiles = acceptedFiles.filter((file) => !file.type.startsWith("image/"));
+    const imageFiles = acceptedFiles.filter((file) =>
+      file.type.startsWith("image/"),
+    );
+    const otherFiles = acceptedFiles.filter(
+      (file) => !file.type.startsWith("image/"),
+    );
     setOtherFiles([...otherFILES, ...otherFiles]);
 
     const filePreviews = getIconForFileType(acceptedFiles); // files here might not be the updated in which case i will have to use a useEffect
 
     setImagePreviews([...imagePreviews, ...filePreviews]);
-    setUploadProgress([...uploadProgress, ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length)]);
+    setUploadProgress([
+      ...uploadProgress,
+      ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length),
+    ]);
     // Clear any previous upload errors
     setUploadErrors([]);
   };
@@ -51,7 +60,9 @@ const FileUpload: React.FC = () => {
     try {
       await axios.post(process.env.NEXT_PUBLIC_API_PATH_UPLOAD!, formData, {
         onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total!);
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total!,
+          );
           setUploadProgress((prevProgress) => {
             const updatedProgress = [...prevProgress];
             updatedProgress[index] = percentCompleted;
@@ -62,12 +73,14 @@ const FileUpload: React.FC = () => {
       });
       // NOTE upload successful add some kinda feedback here - show download links
       setUploading(false);
-
     } catch (error) {
       if (axios.isCancel(error)) {
         // NOTE user cancelled or removed file        return;
       }
-      setUploadErrors([...uploadErrors, `Error uploading ${file.name}: ${error}`]);
+      setUploadErrors([
+        ...uploadErrors,
+        `Error uploading ${file.name}: ${error}`,
+      ]);
     }
   };
 
@@ -86,24 +99,32 @@ const FileUpload: React.FC = () => {
       // NOTE create blob or other modification of the file here
       await uploadFile(file, index);
     });
-
   };
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
-          <div className="border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
+          <div className="hover:cursor-pointer border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <p className="text-gray-500 text-center w-full h-full">Drag and drop some files here, or click to select files</p>
+              <p className="text-gray-500 text-center w-full h-full">
+                Drag and drop some files here, or click to select files
+              </p>
             </div>
           </div>
         )}
       </Dropzone>
 
       <div className="w-full ">
-        <FilePreview uploading={uploading} imagePreviews={imagePreviews} files={files} uploadProgress={uploadProgress} removeFile={removeFile} cancelUpload={cancelUpload} />
+        <FilePreview
+          uploading={uploading}
+          imagePreviews={imagePreviews}
+          files={files}
+          uploadProgress={uploadProgress}
+          removeFile={removeFile}
+          cancelUpload={cancelUpload}
+        />
       </div>
       <UploadError uploadErrors={uploadErrors} />
       <button
@@ -112,7 +133,6 @@ const FileUpload: React.FC = () => {
       >
         Upload Files
       </button>
-
     </div>
   );
 };
