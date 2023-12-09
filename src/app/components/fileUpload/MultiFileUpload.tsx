@@ -135,12 +135,14 @@ const FileUpload: React.FC = () => {
         </div>
       )}
       {uploadErrors.length > 0 && <UploadError uploadErrors={uploadErrors} />}
-      <button
-        onClick={uploadFiles}
-        className="mt-2 rounded-md bg-black px-4 py-2 text-white"
-      >
-        Upload Files
-      </button>
+      {files.length > 0 && (
+        <button
+          onClick={uploadFiles}
+          className="mt-2 rounded-md bg-black px-4 py-2 text-white"
+        >
+          Upload Files
+        </button>
+      )}
     </div>
   );
 };
