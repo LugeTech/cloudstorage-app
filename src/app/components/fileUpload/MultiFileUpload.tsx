@@ -122,17 +122,19 @@ const FileUpload: React.FC = () => {
         )}
       </Dropzone>
 
-      <div className="w-full ">
-        <FilePreview
-          uploading={uploading}
-          imagePreviews={imagePreviews}
-          files={files}
-          uploadProgress={uploadProgress}
-          removeFile={removeFile}
-          cancelUpload={cancelUpload}
-        />
-      </div>
-      <UploadError uploadErrors={uploadErrors} />
+      {files.length > 0 && (
+        <div className="w-full ">
+          <FilePreview
+            uploading={uploading}
+            imagePreviews={imagePreviews}
+            files={files}
+            uploadProgress={uploadProgress}
+            removeFile={removeFile}
+            cancelUpload={cancelUpload}
+          />
+        </div>
+      )}
+      {uploadErrors.length > 0 && <UploadError uploadErrors={uploadErrors} />}
       <button
         onClick={uploadFiles}
         className="mt-2 rounded-md bg-black px-4 py-2 text-white"
