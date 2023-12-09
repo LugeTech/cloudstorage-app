@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MultiFileUpload from "@/app/components/fileUpload/MultiFileUpload";
+import { UserButton } from "@clerk/nextjs";
 
 export function FrontPage() {
   return (
@@ -18,7 +19,7 @@ export function FrontPage() {
           </span>
           <span className="sr-only">STORE IT</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto flex gap-4 sm:gap-6 justify-center items-center">
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#"
@@ -37,11 +38,8 @@ export function FrontPage() {
           >
             Contact
           </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Login
+          <Link className="" href="#">
+            <UserButton afterSignOutUrl="/" />
           </Link>
         </nav>
       </header>
