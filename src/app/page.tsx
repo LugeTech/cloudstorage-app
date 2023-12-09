@@ -15,7 +15,7 @@ export default function Home() {
     );
   } else {
     return (
-      <main className="flex min-h-screen flex-col items-center px-24 ">
+      <main className="flex min-h-screen w-full flex-col items-center sm:px-24 ">
         {/* <Navbar /> */}
         {/* <UserButton afterSignOutUrl="/" /> */}
         {/* {<h1 className="text-4xl font-bold text-center">Cloud App</h1>} */}
