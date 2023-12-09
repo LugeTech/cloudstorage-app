@@ -13,11 +13,11 @@ export function FrontPage() {
     <div className="flex flex-col min-h-screen bg-white w-full">
       <header className="px-4 lg:px-6 h-14 flex items-center bg-[#ffffff] border-b">
         <Link className="flex items-center justify-center" href="#">
-          <CloudIcon className="h-6 w-6" />
-          <span className="ml-2 text-lg font-semibold text-gray-700">
+          <CloudIcon className="h-4 w-4 sm:h-6 sm:w-6" />
+          <span className="ml-1 sm:text-lg font-semibold text-gray-700">
             STORE IT
           </span>
-          <span className="sr-only">STORE IT</span>
+          {/* <span className="sr-only">STORE IT</span> */}
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 justify-center items-center">
           <Link
