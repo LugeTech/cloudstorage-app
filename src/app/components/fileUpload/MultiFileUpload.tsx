@@ -89,7 +89,7 @@ const FileUpload: React.FC = () => {
 
   const cancelTokenSources: CancelTokenSource[] = [];
   const cancelUpload = (index: number) => {
-    cancelTokenSources[index].cancel("Upload canceled by user");
+    cancelTokenSources[index]?.cancel("Upload canceled by user");
   };
 
   const uploadFiles = async () => {
