@@ -90,14 +90,14 @@ function decryptFile(inputFile: string, outputFile: string): Promise<string> {
 
 function decryptBuffer(encryptedBuffer: Buffer): Buffer {
   // Extract the IV from the beginning of the encrypted buffer
-  const iv = encryptedBuffer.slice(0, 16);
+  const iv = encryptedBuffer.subarray(0, 16);
 
   // Create a decipher using the same algorithm and key
   const decipher = crypto.createDecipheriv(algorithm, key, iv);
 
   // Update the decipher with the remaining encrypted buffer
   const decryptedBuffer = Buffer.concat([
-    decipher.update(encryptedBuffer.slice(16)),
+    decipher.update(encryptedBuffer.subarray(16)),
     decipher.final(),
   ]);
 

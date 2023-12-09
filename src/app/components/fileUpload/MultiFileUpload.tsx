@@ -21,7 +21,7 @@ const FileUpload: React.FC = () => {
     rejectedFiles: FileRejection[],
   ) => {
     setFiles([...files, ...acceptedFiles]);
-    // get all imagees files, not sure why i had this
+    // get all imagees files, not sure why i had this in the beginning
     // const imageFiles = acceptedFiles.filter((file) =>
     //   file.type.startsWith("image/"),
     // );
@@ -87,11 +87,10 @@ const FileUpload: React.FC = () => {
     }
   };
 
+  const cancelTokenSources: CancelTokenSource[] = [];
   const cancelUpload = (index: number) => {
     cancelTokenSources[index].cancel("Upload canceled by user");
   };
-
-  const cancelTokenSources: CancelTokenSource[] = [];
 
   const uploadFiles = async () => {
     setUploading(true);
@@ -102,17 +101,21 @@ const FileUpload: React.FC = () => {
       // NOTE create blob or other modification of the file here
       await uploadFile(file, index);
     });
+    // at this pooint update the front end
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
-          <div className="hover:cursor-pointer border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
+          <div className="w-full h-full hover:cursor-pointer border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               <p className="text-gray-500 text-center w-full h-full">
-                Drag and drop some files here, or click to select files
+                Drag and drop some files here
+              </p>
+              <p className="text-gray-500 text-center w-full h-full">
+                Or click to select files
               </p>
             </div>
           </div>
