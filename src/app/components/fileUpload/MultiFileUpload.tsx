@@ -108,15 +108,20 @@ const FileUpload: React.FC = () => {
     <div className="flex flex-col items-center justify-center w-full h-full">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
-          <div className="w-full h-full hover:cursor-pointer border-2 border-dashed border-gray-300 bg-sky-100 p-4 rounded flex flex-col items-center justify-center w-60 h-30">
+          <div className=" border-2 border-dashed border-gray-300 bg-sky-100 p-1 rounded flex flex-col items-center justify-center ">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <p className="text-gray-500 text-center w-full h-full">
-                Drag and drop some files here
-              </p>
-              <p className="text-gray-500 text-center w-full h-full">
-                Or click to select files
-              </p>
+              <div className="flex flex-col items-center justify-center w-full h-full hover:cursor-pointer">
+                <p className="text-gray-500 text-center ">
+                  Drag and drop some files here
+                </p>
+                <p className="text-gray-500 text-center ">
+                  Or click to select files
+                </p>
+                <p className="text-gray-500 text-center font-extrabold text-2xl hover:text-3xl">
+                  +
+                </p>
+              </div>
             </div>
           </div>
         )}
