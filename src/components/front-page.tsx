@@ -44,11 +44,11 @@ export function FrontPage() {
         </nav>
       </header>
       <main className="flex-1 flex items-center justify-center bg-gray-100 py-12">
-        <Card className="w-full max-w-xl mx-4">
+        <Card className=" max-w-xl mx-4">
           <CardHeader className="text-center">
-            <h2 className="text-2xl font-semibold">Upload your files</h2>
+            <h2 className="text-2xl font-semibold">Upload some files</h2>
           </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center p-6 bg-gray-50 w-full h-full">
+          <CardContent className="flex flex-col items-center justify-center p-1 bg-gray-50 ">
             <MultiFileUpload />
           </CardContent>
         </Card>
