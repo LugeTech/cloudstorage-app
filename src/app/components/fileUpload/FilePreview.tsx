@@ -43,7 +43,7 @@ const AFileDisplay = ({
 
           <p className="mt-2 text-gray-600 text-sm text-center">
             {files[index].name.length > 12
-              ? files[index].name.substring(0, 12) + "..." // If the name is longer than 20 characters
+              ? files[index].name.substring(0, 12) + "..." // If the name is longer than 20 characters, add ellipsis.
               : files[index].name}
           </p>
           {uploadProgress[index] > 0 && (
