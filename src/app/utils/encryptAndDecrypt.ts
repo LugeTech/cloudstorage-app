@@ -1,4 +1,7 @@
 "use server";
+// THIS VERSION IS DEPRICATED BUT WORKS.
+// ONLY ISSUE IS EFFICIENCY
+// THIS VERSION READS THE ENTIRE FILE INTO MEMORY
 //this version streams the file in chunks instead of reading the entire file into memory
 import * as crypto from "crypto";
 import * as fs from "fs";
