@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
-import { encryptBuffer } from "@/app/utils/encryptAndDecrypt";
+import { encryptBuffer } from "@/app/utils/encryption";
 
 const unixTime = Date.now();
 
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
     // Encrypt the Buffer
-    const encryptedBuffer = encryptBuffer(fileBuffer);
+    const encryptedBuffer = await encryptBuffer(fileBuffer);
 
     // Write the encrypted Buffer directly to disk
     fs.writeFileSync(`./public/uploads/${newFilename}`, encryptedBuffer);
