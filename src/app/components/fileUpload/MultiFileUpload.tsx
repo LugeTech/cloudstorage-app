@@ -61,19 +61,23 @@ const FileUpload: React.FC = () => {
     formData.append("file", file);
     const cancelSource = axios.CancelToken.source();
     try {
-      await axios.post(process.env.NEXT_PUBLIC_API_PATH_UPLOAD!, formData, {
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total!,
-          );
-          setUploadProgress((prevProgress) => {
-            const updatedProgress = [...prevProgress];
-            updatedProgress[index] = percentCompleted;
-            return updatedProgress;
-          });
+      await axios.post(
+        process.env.NEXT_PUBLIC_API_PATH_UPLOAD as string,
+        formData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total!,
+            );
+            setUploadProgress((prevProgress) => {
+              const updatedProgress = [...prevProgress];
+              updatedProgress[index] = percentCompleted;
+              return updatedProgress;
+            });
+          },
+          cancelToken: cancelSource.token,
         },
-        cancelToken: cancelSource.token,
-      });
+      );
       // NOTE upload successful add some kinda feedback here - show download links
       setUploading(false);
     } catch (error) {

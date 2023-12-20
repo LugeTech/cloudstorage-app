@@ -3,8 +3,8 @@
 import * as crypto from "crypto";
 import * as fs from "fs";
 
-const originalKey: string = "password";
-const algorithm: string = "aes-256-cbc";
+const originalKey: string = process.env.ORIGINAL_KEY as string;
+const algorithm: string = process.env.ALGORITHM as string;
 
 const key: Buffer = Buffer.alloc(32, originalKey, "utf-8");
 
