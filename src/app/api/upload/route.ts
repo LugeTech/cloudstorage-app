@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import { encryptBuffer } from "@/app/utils/encryption";
-
+import { getUserData } from "@/app/utils/functions";
 const unixTime = Date.now();
 
 export async function POST(request: NextRequest) {
@@ -20,6 +20,12 @@ export async function POST(request: NextRequest) {
   const newFilename = `${filename}_${unixTime}`;
 
   try {
+    const user = await getUserData();
+    console.log(user);
+
+    // Folder name
+    //const folderName = user?.id;
+    //console.log(folderName);
     // Convert the File to a Buffer
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 

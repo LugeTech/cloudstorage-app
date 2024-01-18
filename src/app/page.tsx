@@ -1,8 +1,5 @@
 "use client";
 import { UserButton, useUser } from "@clerk/nextjs";
-
-import Navbar from "@/app/components/Navbar";
-import MultiFileUpload from "./components/fileUpload/MultiFileUpload";
 import { FrontPage } from "@/components/front-page";
 
 export default function Home() {
